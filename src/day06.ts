@@ -6,19 +6,10 @@ const different = (chars: string[]) => {
 }
 
 const getIndex = (signal: string, markerSize: number) => {
-  const queue: string[] = []
-  const push = (symbol: string) => {
-    queue.push(symbol)
-    if (queue.length > markerSize) {
-      queue.shift()
-    }
-  }
-
-  for (const [index, symbol] of [...signal].entries()) {
-    if (queue.length === markerSize && different(queue)) {
-      return index
-    }
-    push(symbol)
+  const _signal = [...signal]
+  for (let i = 0; i <= _signal.length - markerSize; i++) {
+    const endMarker = i + markerSize
+    if (different(_signal.slice(i, endMarker))) return endMarker
   }
 }
 
